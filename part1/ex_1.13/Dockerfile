@@ -1,7 +1,7 @@
 # Use a specific version of golang as base image
 FROM golang:1.16
 
-# Expose port 5000
+# Expose port 8080
 EXPOSE 8080
 
 # Set working directory
