@@ -1,0 +1,4 @@
+FROM nginx:latest
+
+COPY small_page_project.html /usr/share/nginx/html/index.html
+
