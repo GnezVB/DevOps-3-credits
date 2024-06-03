@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+    frontend:
+        image: frontend14
+        ports:
+            - 5000:5000
+        container_name: frontend23
+
+
+    backend:
+        image: backend14
+        ports:
+            - 8080:8080
+        container_name: backend23
