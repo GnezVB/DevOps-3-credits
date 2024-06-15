@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+    redis:
+      image: redis
+      container_name: redis
+
+
+    frontend:
+        image: frontend14
+        ports:
+            - 5000:5000
+        container_name: frontend
+
+
+    backend:
+        image: backend14
+        ports:
+            - 8080:8080
+        environment:
+            - REDIS_HOST=redis
+            - POSTGRES_HOST=db
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DATABASE=postgres
+        depends_on:
+            - db
+            - redis  
+        container_name: backend
+
+
+    db:
+        image: postgres:13.2-alpine
+        restart: unless-stopped
+        environment:
+            - POSTGRES_PASSWORD=postgres
+        container_name: db_redmine
+        volumes:
+            - ./database:/var/lib/postgresql/data
+
+    nginx:
+        image: nginx
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - 80:80
+        depends_on:
+            - backend
+            - frontend
+        container_name: nginx
